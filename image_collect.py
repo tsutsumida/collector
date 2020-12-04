@@ -47,8 +47,7 @@ class CollectionImages:
         self._api = tweepy.API(auth)
 
     def set_search_account(self):
-        self._accounts.append('komoshuai')
-        self._accounts.append('YOSHIZAKI_AYA')
+        self._accounts.append('TwitterJP')
 
     def run(self):
         """
