@@ -1,7 +1,6 @@
 import os
 import tweepy
 import urllib.request
-import urllib.error
 import logging
 import configparser
 
@@ -13,13 +12,13 @@ os.makedirs(BASE_DIR, exist_ok=True)
 LOG_FILE = os.path.join(BASE_DIR, 'image_collect.log')
 
 # Twitter APIを実行する変数を保存したconfig.iniファイルをロード
+CONFIG_INI_FILE = 'config.ini'
 config_ini = configparser.ConfigParser()
-config_ini_path = 'config.ini'
 
-if not os.path.exists(config_ini_path):
-    raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), config_ini_path)
+if not os.path.exists(CONFIG_INI_FILE):
+    raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), CONFIG_INI_FILE)
 
-config_ini.read(config_ini_path, encoding='utf-8')
+config_ini.read(CONFIG_INI_FILE, encoding='utf-8')
 
 CONSUMER_KEY = config_ini['TWITTER_API']['CONSUMER_KEY']
 CONSUMER_SECRET = config_ini['TWITTER_API']['CONSUMER_SECRET']
