@@ -3,7 +3,6 @@ import tweepy
 import urllib.request
 import urllib.error
 import logging
-from plyer import notification
 import configparser
 
 # 画像の保存先
@@ -31,7 +30,6 @@ class CollectionImages:
     _accounts = list()
     _api = None
     _img_dir = None
-    _isOK = True
 
     def __init__(self):
         """初期設定
@@ -83,7 +81,6 @@ class CollectionImages:
                 with open(path, "wb") as f:
                     f.write(response.read())
             except Exception as e:
-                self._isOK = False
                 logging.warning(' Download Failed:{0}, {1}'.format(url, error))
             else:
                 logging.info(' Download Success:{0}'.format(path))
@@ -97,18 +94,6 @@ def main():
                             level=logging.INFO)
         downloader = CollectionImages()
         downloader.run()
-        if downloader._isOK:
-            notification.notify(
-                title = "画像収集プログラム",
-                message = "正常終了しました。詳細はログ({})を確認ください。".format(LOG_FILE),
-                app_name = "image_collect.py",
-            )
-        else:
-            notification.notify(
-                title = "画像収集プログラム",
-                message = "異常が発生しました。詳細はログ({})を確認ください。".format(LOG_FILE),
-                app_name = "image_collect.py",
-            )
 
     except KeyboardInterrupt:
         # Ctrl-Cで終了
