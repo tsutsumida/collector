@@ -26,25 +26,26 @@ ACCESS_TOKEN_KEY =config_ini['TWITTER_API']['ACCESS_TOKEN_KEY']
 ACCESS_TOKEN_SECRET = config_ini['TWITTER_API']['ACCESS_TOKEN_SECRET']
 
 class CollectionImages:
-    _accounts = list()
-    _api = None
-    _img_dir = None
 
     def __init__(self):
         """初期設定
         """
-        self.set_api()
+        self._accounts = self.set_search_account()
+        self._api = self.set_api()
         self.set_search_account()
+        self._img_dir = None
 
     def set_api(self):
         """apiの設定
         """
         auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
         auth.set_access_token(ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET)
-        self._api = tweepy.API(auth)
+        return tweepy.API(auth)
 
     def set_search_account(self):
-        self._accounts.append('TwitterJP')
+        accounts = list()
+        accounts.append('TwitterJP')
+        return accounts
 
     def run(self):
         """
